@@ -1,5 +1,7 @@
 #include "awesomeserver.h"
 
+#include <QTcpSocket>
+
 #include <QDebug>
 
 AwesomeServer::AwesomeServer(int port)
@@ -24,4 +26,20 @@ bool AwesomeServer::listen()
 void AwesomeServer::newClientConnected()
 {
     qDebug() << "Client connected";
+
+    while (server->hasPendingConnections()) {
+        QTcpSocket *socket = server->nextPendingConnection();
+
+        connect(
+                socket,
+                &QTcpSocket::readyRead,
+                this,
+                &AwesomeServer::newMessage
+        );
+    }
+}
+
+void AwesomeServer::newMessage()
+{
+    qDebug() << "new message";
 }

@@ -13,6 +13,7 @@ public:
 
 protected slots:
     void newClientConnected();
+    void newMessage();
 
 protected:
     int port;
