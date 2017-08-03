@@ -11,7 +11,7 @@ set(CMAKE_AUTORCC ON)
 # Find the QtWidgets library
 find_package(Qt5Core)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp awesomeserver.cpp awesomeserver.h)
 
 add_executable(QtWorkshop ${SOURCE_FILES})
 

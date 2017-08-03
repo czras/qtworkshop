@@ -3,6 +3,8 @@
 
 #include <QDebug>
 
+#include "awesomeserver.h"
+
 int main(int argc, char *argv[]) {
     QCoreApplication app(argc, argv);
     app.setApplicationVersion("0.1.0");
@@ -22,7 +24,12 @@ int main(int argc, char *argv[]) {
 
     parser.process(app);
 
-    qDebug() << "Hello workshop" << parser.value(portOption);
+    AwesomeServer server(parser.value(portOption).toInt());
+
+    if (server.listen() == false) {
+        qDebug() << "Failed to listen on given port";
+        return 1;
+    }
 
     return app.exec();
 }
