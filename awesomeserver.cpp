@@ -41,5 +41,15 @@ void AwesomeServer::newClientConnected()
 
 void AwesomeServer::newMessage()
 {
-    qDebug() << "new message";
+    QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
+
+    if (socket == nullptr) {
+        qDebug() << "Holly shite";
+        return;
+    }
+
+    while (socket->canReadLine()) {
+        QString msg = socket->readLine();
+        socket->write(msg.toUtf8());
+    }
 }
