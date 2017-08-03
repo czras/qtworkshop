@@ -11,6 +11,9 @@ public:
 
     bool listen();
 
+protected:
+    QString processMessage(const QString &msg);
+
 protected slots:
     void newClientConnected();
     void newMessage();

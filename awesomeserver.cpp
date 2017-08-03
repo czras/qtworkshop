@@ -23,6 +23,20 @@ bool AwesomeServer::listen()
     return server->listen(QHostAddress::Any, port);
 }
 
+QString AwesomeServer::processMessage(const QString &msg)
+{
+    QStringList command = msg.split('|');
+
+    // echo|hodor hodor
+    // { "echo", "hodor hodor" }
+
+    if (command.value(0) == "echo") {
+        return command.value(1);
+    }
+
+    return "INVALID COMMAND";
+}
+
 void AwesomeServer::newClientConnected()
 {
     qDebug() << "Client connected";
@@ -49,7 +63,13 @@ void AwesomeServer::newMessage()
     }
 
     while (socket->canReadLine()) {
-        QString msg = socket->readLine();
-        socket->write(msg.toUtf8());
+        QString msg = socket->readLine().trimmed();
+
+        if (msg.isEmpty()) {
+            continue;
+        }
+
+        QString result = processMessage(msg);
+        socket->write(result.toUtf8() + '\n');
     }
 }
