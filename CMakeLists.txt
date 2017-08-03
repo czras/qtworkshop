@@ -12,7 +12,7 @@ set(CMAKE_AUTORCC ON)
 find_package(Qt5Core)
 find_package(Qt5Network)
 
-set(SOURCE_FILES main.cpp awesomeserver.cpp awesomeserver.h)
+set(SOURCE_FILES main.cpp awesomeserver.cpp awesomeserver.h resources/res.qrc)
 
 add_executable(QtWorkshop ${SOURCE_FILES})
 

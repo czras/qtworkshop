@@ -1,6 +1,7 @@
 #include "awesomeserver.h"
 
 #include <QTcpSocket>
+#include <QFile>
 
 #include <QDebug>
 
@@ -32,6 +33,17 @@ QString AwesomeServer::processMessage(const QString &msg)
 
     if (command.value(0) == "echo") {
         return command.value(1);
+    }
+
+    if (command.value(0) == "cat") {
+        // :/path
+        // :/hodor.txt
+        // cat|hodor.txt
+
+        QFile f(":/" + command.value(1));
+        f.open(QFile::ReadOnly);
+
+        return f.readAll();
     }
 
     return "INVALID COMMAND";
