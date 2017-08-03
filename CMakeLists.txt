@@ -10,9 +10,10 @@ set(CMAKE_AUTORCC ON)
 
 # Find the QtWidgets library
 find_package(Qt5Core)
+find_package(Qt5Network)
 
 set(SOURCE_FILES main.cpp awesomeserver.cpp awesomeserver.h)
 
 add_executable(QtWorkshop ${SOURCE_FILES})
 
-target_link_libraries(QtWorkshop Qt5::Core)
+target_link_libraries(QtWorkshop Qt5::Core Qt5::Network)

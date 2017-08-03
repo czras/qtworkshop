@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QTcpServer>
+
 class AwesomeServer
 {
 public:
@@ -9,4 +11,5 @@ public:
 
 protected:
     int port;
+    QTcpServer *server = nullptr;
 };
