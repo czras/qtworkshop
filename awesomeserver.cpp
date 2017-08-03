@@ -1,6 +1,7 @@
 #include "awesomeserver.h"
 
 #include <QTcpSocket>
+#include <QCoreApplication>
 #include <QFile>
 
 #include <QDebug>
@@ -44,6 +45,11 @@ QString AwesomeServer::processMessage(const QString &msg)
         f.open(QFile::ReadOnly);
 
         return f.readAll();
+    }
+
+    if (command.value(0) == "exit") {
+        qApp->exit(command.value(1).toInt());
+        return "SHUTTING DOWN";
     }
 
     return "INVALID COMMAND";
