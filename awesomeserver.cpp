@@ -47,6 +47,18 @@ QString AwesomeServer::processMessage(const QString &msg)
         return f.readAll();
     }
 
+    if (command.value(0) == "pause") {
+        server->pauseAccepting();
+        qDebug() <<  "Queuing new connections";
+        return "paused";
+    }
+
+    if (command.value(0) == "resume") {
+        server->resumeAccepting();
+        qDebug() << "Serving new connections";
+        return "resumed";
+    }
+
     if (command.value(0) == "exit") {
         qApp->exit(command.value(1).toInt());
         return "SHUTTING DOWN";
