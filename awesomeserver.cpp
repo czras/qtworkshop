@@ -59,6 +59,18 @@ QString AwesomeServer::processMessage(const QString &msg)
         return "resumed";
     }
 
+    if (command.value(0) == "stop") {
+        server->close();
+        qDebug() << "Stopped listening for new connections";
+        return "stopped";
+    }
+
+    if (command.value(0) == "start") {
+        server->listen(QHostAddress::Any, port);
+        qDebug() << "Started listening for new connections";
+        return "started";
+    }
+
     if (command.value(0) == "exit") {
         qApp->exit(command.value(1).toInt());
         return "SHUTTING DOWN";
