@@ -68,7 +68,26 @@ void AwesomeServer::newClientConnected()
                 this,
                 &AwesomeServer::newMessage
         );
+
+        connect(
+                socket,
+                &QTcpSocket::disconnected,
+                this,
+                &AwesomeServer::clientDisconnected
+        );
     }
+}
+
+void AwesomeServer::clientDisconnected()
+{
+    QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
+
+    if (socket == nullptr) {
+        qDebug() << "Holly shite";
+        return;
+    }
+
+    qDebug() << "Client disconnected";
 }
 
 void AwesomeServer::newMessage()

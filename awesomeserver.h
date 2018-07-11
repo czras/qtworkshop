@@ -17,6 +17,7 @@ protected:
 protected slots:
     void newClientConnected();
     void newMessage();
+    void clientDisconnected();
 
 protected:
     int port;
